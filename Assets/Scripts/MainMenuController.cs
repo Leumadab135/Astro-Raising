@@ -1,0 +1,34 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class MainMenuController : MonoBehaviour
+{
+    [SerializeField] Button _startGameButton;
+    [SerializeField] Button _exitGameButton;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _startGameButton.onClick.AddListener(StartGame);
+        _exitGameButton.onClick.AddListener(ExitGame);
+    }
+
+    private void StartGame()
+    {
+        SceneManager.LoadScene("2DVideogame");
+    }
+    private void ExitGame()
+    {
+        Application.Quit();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
