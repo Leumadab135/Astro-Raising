@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class AnimatorController : MonoBehaviour
 {
-    [SerializeField] private Jetpack _jetpack;
+    private Jetpack _jetpack;
+    private PlayerMovement _playerMovement;
     private Animator _anim;
 
     private void Awake()
     {
         _anim = GetComponent<Animator>();
+        _jetpack = GetComponent<Jetpack>();
+        _playerMovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -20,10 +21,18 @@ public class AnimatorController : MonoBehaviour
         _anim.SetBool("Flying", _jetpack._flying);
 
         //Fall animation
-        if (_jetpack._fall)
-            _anim.SetBool("Falling", true);
-        else
-            _anim.SetBool("Falling", false);
+        _anim.SetBool("Falling", _jetpack._fall);
 
+        //Running animation
+        if (Input.GetAxis("Horizontal") < 0 || Input.GetAxis("Horizontal") > 0)
+            _anim.SetBool("Running", true);
+        else
+            _anim.SetBool("Running", false);
+
+        //Side Propulsor animation
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
+        {
+            _anim.SetTrigger("SidePropulsor");
+        }
     }
 }

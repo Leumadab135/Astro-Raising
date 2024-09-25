@@ -6,7 +6,7 @@ public class RobotAnimatorController : MonoBehaviour
 {
     //Attributes
     [SerializeField] private Animator _animator;
-    [SerializeField] private PlayerMovement _robotMovement;
+    [SerializeField] private PlayerMovementPrueba _robotMovement;
 
     //Methods
     void Update()

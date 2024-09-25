@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemPiragna : Item
@@ -9,22 +7,22 @@ public class ItemPiragna : Item
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
+        {
+            Instantiate(_effect, transform.position, Quaternion.identity);
             Recolected();
+        }
 
         if (collision.gameObject.tag == "Player")
         {
             Jetpack jetpack = collision.gameObject.GetComponent<Jetpack>();
-            PlayerDetections playerDetections = collision.gameObject.GetComponent<PlayerDetections>();
+            Animator _anim = collision.gameObject.GetComponent<Animator>();
+
+            _anim.SetTrigger("AstroHit");
             jetpack.AddEnergy(PIRAGNA_DAMAGE);
 
-
+            Instantiate(_effect, transform.position, Quaternion.identity);
             Recolected();
         }
-    }
-
-    public override void Recolected()
-    {
-        base.Recolected();
     }
 }
 

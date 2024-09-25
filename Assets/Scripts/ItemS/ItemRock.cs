@@ -10,12 +10,17 @@ public class ItemRock : Item
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
+        {
             Recolected();
+            CreateParticles();
+        }
 
         if (collision.gameObject.tag == "Player")
         {
             Jetpack jetpack = collision.gameObject.GetComponent<Jetpack>();
             PlayerDetections playerDetections = collision.gameObject.GetComponent<PlayerDetections>();
+            Animator _anim = collision.gameObject.GetComponent<Animator>();
+            _anim.SetTrigger("AstroHit");
 
             if (playerDetections.IsGrounded == false)
                 jetpack.GetComponent<Rigidbody2D>().AddForce(Vector2.down * ROCK_FORCE);
@@ -25,11 +30,7 @@ public class ItemRock : Item
             }
 
             Recolected();
+            CreateParticles();
         }
-    }
-
-    public override void Recolected()
-    {
-        base.Recolected();
     }
 }

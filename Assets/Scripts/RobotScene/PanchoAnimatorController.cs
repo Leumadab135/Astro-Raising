@@ -5,7 +5,7 @@ using UnityEngine;
 public class PanchoAnimatorController : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    [SerializeField] private PlayerMovement _panchoMovement;
+    [SerializeField] private PlayerMovementPrueba _panchoMovement;
 
     void Update()
     {

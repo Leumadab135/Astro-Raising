@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Jetpack : MonoBehaviour
@@ -15,15 +11,15 @@ public class Jetpack : MonoBehaviour
     }
 
     //Attributes
-    public float Energy 
-    {  
+    public float Energy
+    {
         get
         {
             return _energy;
-        } 
+        }
         set
         {
-            _energy = Mathf.Clamp(value,0,_maxEnergy); 
+            _energy = Mathf.Clamp(value, 0, _maxEnergy);
         }
     }
     public bool _flying = false;
@@ -36,6 +32,7 @@ public class Jetpack : MonoBehaviour
     [SerializeField] private float _energyRegenerationRatio = 3f;
     [SerializeField] private float _horizontalForce;
     [SerializeField] private float _flyForce;
+    [SerializeField] private float _propulsorForce = 10000;
 
     //Methods
     private void Awake()
@@ -62,11 +59,11 @@ public class Jetpack : MonoBehaviour
         }
 
         if (_playerDetections.IsGrounded)
-            Regenerate();    
+            Regenerate();
     }
 
     //Public Methods
-    public void FlyUp ()
+    public void FlyUp()
     {
         if (Energy <= 0)
             return;
@@ -79,7 +76,7 @@ public class Jetpack : MonoBehaviour
         _flying = false;
     }
 
-    public void Regenerate ()
+    public void Regenerate()
     {
         Energy += _energyRegenerationRatio * Time.deltaTime;
     }
@@ -89,7 +86,7 @@ public class Jetpack : MonoBehaviour
         Energy += energy;
     }
 
-    public void FlyHorizontal (Direction flyDirection)
+    public void FlyHorizontal(Direction flyDirection)
     {
         if (!_flying)
             return;
@@ -108,7 +105,7 @@ public class Jetpack : MonoBehaviour
             _fall = false;
     }
 
-    public void Falling (Direction flyDirection)
+    public void Falling(Direction flyDirection)
     {
         if (_fall)
         {
@@ -116,6 +113,26 @@ public class Jetpack : MonoBehaviour
                 _targetRB.AddForce(Vector2.left * _horizontalForce);
             else
                 _targetRB.AddForce(Vector2.right * _horizontalForce);
+        }
+    }
+
+    public void SidePropulsorLeft()
+    {
+        if (_playerDetections.IsGrounded == false && Energy >= 5)
+        {
+            _targetRB.velocity = Vector2.zero;
+            _targetRB.AddForce(Vector2.left * _propulsorForce);
+            Energy -= 5;
+        }
+    }
+
+    public void SidePropulsorRight()
+    {
+        if (_playerDetections.IsGrounded == false && Energy >= 5)
+        {
+            _targetRB.velocity = Vector2.zero;
+            _targetRB.AddForce(Vector2.right * _propulsorForce);
+            Energy -= 5;
         }
     }
 

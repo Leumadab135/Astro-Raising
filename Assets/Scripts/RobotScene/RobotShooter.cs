@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RobotShooter : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement _robotMovement;
+    [SerializeField] private PlayerMovementPrueba _robotMovement;
     [SerializeField] private GameObject _handPrefab;
 
     // Update is called once per frame

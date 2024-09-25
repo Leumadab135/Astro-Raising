@@ -9,7 +9,10 @@ public class ItemReactor : Item
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
+        {
             Recolected();
+            CreateParticles();
+        }
 
         if (collision.gameObject.tag == "Player")
         {
@@ -17,13 +20,8 @@ public class ItemReactor : Item
             PlayerDetections playerDetections = collision.gameObject.GetComponent<PlayerDetections>();
             jetpack.AddEnergy(REACTOR_HEAL);
 
-
             Recolected();
+            CreateParticles();
         }
-    }
-
-    public override void Recolected()
-    {
-        base.Recolected();
     }
 }

@@ -16,16 +16,15 @@ public class Item : MonoBehaviour, IRecolectable
 
     //Attributes
     [SerializeField] ItemTypes Type { get; set; }
-    public GameObject _particles;
+    public GameObject _effect;
 
-    public virtual void Recolected()
+    public void Recolected()
     {
         Destroy(gameObject);
-        CreateParticles();
     }
 
-    private void CreateParticles()
+    public void CreateParticles()
     {
-        Instantiate(_particles, transform.position, Quaternion.identity);
+        Instantiate(_effect, transform.position, Quaternion.identity);
     }
 }
