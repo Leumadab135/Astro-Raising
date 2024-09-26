@@ -11,6 +11,6 @@ public class UIController : MonoBehaviour
     void Update()
     {
         _energySlider.value = _jetpack.Energy;
-        _textSlider.text = ((int)_jetpack.transform.position.y).ToString();
+        _textSlider.text = "Altitude: " + ((int)_jetpack.transform.position.y).ToString();
     }
 }

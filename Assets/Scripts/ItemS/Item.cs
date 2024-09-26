@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Item : MonoBehaviour, IRecolectable
@@ -11,7 +7,8 @@ public class Item : MonoBehaviour, IRecolectable
         None,
         Rock,
         Piragna,
-        Reactor
+        Reactor,
+        Mineral
     }
 
     //Attributes

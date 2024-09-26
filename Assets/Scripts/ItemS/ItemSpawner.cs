@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,12 +5,14 @@ using Random = UnityEngine.Random;
 public class ItemSpawner : MonoBehaviour
 {
     //Attributes
+    [SerializeField] private Transform _playerTransform;
     [SerializeField] private List<Item> _spawnList;
-    private float _minSpawnTime = 1;
-    private float _maxSpawnTime = 7;
+    [SerializeField] private Item _mineralItem;
+    private float _minSpawnTime = 0.5f;
+    private float _maxSpawnTime = 3;
     private float _nextSpawnTime;
     private float _cronoTime = 0;
-
+    private bool _mineralAdded = false;
 
     void Start()
     {
@@ -28,6 +28,10 @@ public class ItemSpawner : MonoBehaviour
             ResetTime();
             SpawnItem();
         }
+
+        //Difficulty progression (add item after certain level)
+        AddMineralItem();
+        DestroySpawner();
     }
 
 
@@ -36,6 +40,7 @@ public class ItemSpawner : MonoBehaviour
         _cronoTime = 0;
         _nextSpawnTime = Random.Range(_minSpawnTime, _maxSpawnTime);
     }
+
     private void SpawnItem()
     {
         //Random Object from a List
@@ -50,8 +55,25 @@ public class ItemSpawner : MonoBehaviour
         newItem.GetComponent<Rigidbody2D>().AddTorque(70);
 
         //Difficulty progression
-        if(_maxSpawnTime < _minSpawnTime)
-            _maxSpawnTime -= 0.1f;
+        if (_maxSpawnTime < _minSpawnTime)
+            _maxSpawnTime -= 0.2f;
+    }
+
+    private void AddMineralItem()
+    {
+        if (_playerTransform.position.y > 116 && !_mineralAdded)
+        {
+            _spawnList.Add(_mineralItem);
+            _mineralAdded = true;
+        }
+    }
+
+    private void DestroySpawner()
+    {
+        if (_playerTransform.position.y > 279)
+        {
+            Destroy(gameObject);
+        }
     }
 }
 
